@@ -7,27 +7,23 @@ const lowerCheckElement = document.getElementById("lowerCheck");
 const numCheckElement = document.getElementById("numCheck");
 const symbolCheckElement = document.getElementById("symbolCheck");
 
-const upperChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-const lowerChar = "abcdefghijklmnopqrstuvwxyz";
-const numChar = "0123456789";
-const symChar = "!@#$%^&*()_+-={}[]:;<>,.?";
-
-passwordButtonElement.disabled = true;
+const characters = {
+  upperChar: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+  lowerChar: "abcdefghijklmnopqrstuvwxyz",
+  numChar: "0123456789",
+  symChar: "!@#$%^&*()_+-={}[]:;<>,.?",
+};
 
 const getSliderValue = () => {
   lengthTextElement.textContent = `LENGTH: ${sliderElement.value}`;
 };
 
-sliderElement.addEventListener("input", getSliderValue);
-
 const getRandomPassword = () => {
   let charactersToUse = "";
-
-  upperCheckElement.checked ? (charactersToUse += upperChar) : "";
-  lowerCheckElement.checked ? (charactersToUse += lowerChar) : "";
-  numCheckElement.checked ? (charactersToUse += numChar) : "";
-  symbolCheckElement.checked ? (charactersToUse += symChar) : "";
-
+  upperCheckElement.checked ? (charactersToUse += characters.upperChar) : "";
+  lowerCheckElement.checked ? (charactersToUse += characters.lowerChar) : "";
+  numCheckElement.checked ? (charactersToUse += characters.numChar) : "";
+  symbolCheckElement.checked ? (charactersToUse += characters.symChar) : "";
   let newString = "";
   for (let i = 0; i < sliderElement.value; i++) {
     newString +=
@@ -35,8 +31,6 @@ const getRandomPassword = () => {
   }
   passwordTextElement.textContent = newString;
 };
-
-passwordButtonElement.addEventListener("click", getRandomPassword);
 
 const setOption = () => {
   if (
@@ -51,6 +45,8 @@ const setOption = () => {
   }
 };
 
+sliderElement.addEventListener("input", getSliderValue);
+passwordButtonElement.addEventListener("click", getRandomPassword);
 upperCheckElement.addEventListener("input", setOption);
 lowerCheckElement.addEventListener("input", setOption);
 numCheckElement.addEventListener("input", setOption);
